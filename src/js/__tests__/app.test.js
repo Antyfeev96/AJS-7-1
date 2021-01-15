@@ -1,48 +1,47 @@
 import Validator from '../app';
 
 test('Name should be valid', () => {
-  const name = new Validator('Dmitri2-4_Antyfeev');
+  const name = new Validator('rogue12undead');
   const check = name.validateUsername();
   expect(check).toBe('Валидное имя');
 });
 
 test('Name should not be valid', () => {
-  const name = new Validator('%^$#  ');
-  expect(() => name.validateUsername()).toThrow('Невалидное имя');
+  const name = new Validator('warrior#human');
+  expect(() => name.validateUsername()).toThrow('Недопустимые символы');
 });
 
-test('Name should not be valid due to 4 numbers', () => {
+test('Name shoule not have more than 3 numbers in a row', () => {
   const name = new Validator('Dmitri1996');
   expect(() => name.validateUsername()).toThrowError('В имени не может быть более 3 чисел подряд');
 });
 
 
-test('Name should not be valid due to numbers in beginning', () => {
+test('Name should begin with letter', () => {
   const name = new Validator('96Dmitri');
-  expect(() => name.validateUsername()).toThrowError('Имя не может начинаться с чисел или символов');
+  expect(() => name.validateUsername()).toThrowError('Имя должно начинаться с буквы');
 });
 
-test('Name should not be valid due to - in beginning', () => {
-  const name = new Validator('-96Dmitri');
-  expect(() => name.validateUsername()).toThrowError('Имя не может начинаться с чисел или символов');
+test('Name should begin with letter', () => {
+  const name = new Validator('_Dmitri');
+  expect(() => name.validateUsername()).toThrowError('Имя должно начинаться с буквы');
 });
 
-test('Name should not be valid due to _ in beginning', () => {
-  const name = new Validator('_96Dmitri');
-  expect(() => name.validateUsername()).toThrowError('Имя не может начинаться с чисел или символов');
+test('Name should begin with letter', () => {
+  const name = new Validator('-12Dmitri');
+  expect(() => name.validateUsername()).toThrowError('Имя должно начинаться с буквы');
 });
 
-test('Name should not be valid due to numbers in ending', () => {
+test('Name should end with letter', () => {
   const name = new Validator('Dmitri96');
-  expect(() => name.validateUsername()).toThrowError('Имя не может заканчиваться числами или символами');
+  expect(() => name.validateUsername()).toThrowError('Имя должно оканчиваться на букву');
 });
 
-test('Name should not be valid due to - in ending', () => {
-  const name = new Validator('Dmitri-');
-  expect(() => name.validateUsername()).toThrowError('Имя не может заканчиваться числами или символами');
+test('Name should end with letter', () => {
+  const name = new Validator('Dmitri96_');
+  expect(() => name.validateUsername()).toThrowError('Имя должно оканчиваться на букву');
 });
-
-test('Name should not be valid due to _ in ending', () => {
-  const name = new Validator('Dmitri_');
-  expect(() => name.validateUsername()).toThrowError('Имя не может заканчиваться числами или символами');
+test('Name should end with letter', () => {
+  const name = new Validator('Dmitri96-');
+  expect(() => name.validateUsername()).toThrowError('Имя должно оканчиваться на букву');
 });
